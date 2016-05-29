@@ -249,7 +249,9 @@
                     oembedData.code = result;
                     success(oembedData, externalUrl, container);
                 },
-                error: settings.onError.call(container, externalUrl, embedProvider)
+                error: function () {
+                    settings.onError.call(container, externalUrl, embedProvider)
+                }
             }, settings.ajaxOptions || {});
             $.ajax(ajaxopts);
         } else if (embedProvider.templateRegex) {

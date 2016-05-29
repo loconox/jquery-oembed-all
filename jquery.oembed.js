@@ -268,6 +268,11 @@
                     src = src.replace('_APIKEY_', settings.apikeys[embedProvider.name]);
                 }
 
+                if (settings.autoplay && embedProvider.autoplay)
+                {
+                    src += embedProvider.autoplay;
+                }
+
                 var code = $('<' + tag + '/>').attr('src', src).attr('width', width)
                     .attr('height', height)
                     .attr('allowfullscreen', embedProvider.embedtag.allowfullscreen || 'true')
@@ -545,7 +550,7 @@
 
         //Video
         new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+", "youtube.com/embed"], '//www.youtube.com/embed/$1?wmode=transparent', {
-            templateRegex: /.*(?:v\=|be\/|embed\/)([\w\-]+)&?.*/, embedtag: {tag: 'iframe', width: '425', height: '349'}
+            templateRegex: /.*(?:v\=|be\/|embed\/)([\w\-]+)&?.*/, embedtag: {tag: 'iframe', width: '425', height: '349'}, autoplay: "&autoplay=1"
         }),
 
         //new $.fn.oembed.OEmbedProvider("youtube", "video", ["youtube\\.com/watch.+v=[\\w-]+&?", "youtu\\.be/[\\w-]+"], 'http://www.youtube.com/oembed', {useYQL:'json'}),

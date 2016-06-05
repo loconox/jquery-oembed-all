@@ -53,6 +53,7 @@
             }
 
             if (resourceURL !== null && resourceURL !== undefined) {
+                resourceURL = resourceURL.replace('#', '%23');
                 //Check if shorten URL
                 for (var j = 0, l = shortURLList.length; j < l; j++) {
                     var regExp = new RegExp('://' + shortURLList[j] + '/', "i");
@@ -150,7 +151,6 @@
             qs = "",
             i;
         url += (url.indexOf("?") <= 0) ? "?" : "&";
-        url = url.replace('#', '%23');
 
         if (provider.maxWidth !== null && (typeof provider.params.maxwidth === 'undefined' || provider.params.maxwidth === null)) {
             provider.params.maxwidth = provider.maxWidth;
@@ -307,7 +307,9 @@
                         oembedData.code = embedProvider.templateData(data);
                         success(oembedData, externalUrl, container);
                     },
-                    error: settings.onError.call(container, externalUrl, embedProvider)
+                    error: function () {
+                        settings.onError.call(container, externalUrl, embedProvider)
+                    }
                 }, settings.ajaxOptions || {});
                 $.ajax(ajaxopts);
             } else {
@@ -336,7 +338,9 @@
                     }
                     success(oembedData, externalUrl, container);
                 },
-                error: settings.onError.call(container, externalUrl, embedProvider)
+                error: function () {
+                    settings.onError.call(container, externalUrl, embedProvider)
+                }
             }, settings.ajaxOptions || {});
             $.ajax(ajaxopts);
         }
@@ -714,7 +718,7 @@
         new $.fn.oembed.OEmbedProvider("speakerdeck", "rich", ["speakerdeck.com/.+"], 'http://speakerdeck.com/oembed.json', {useYQL: 'json'}),
         new $.fn.oembed.OEmbedProvider("popplet", "rich", ["popplet.com/app/.*"], "http://popplet.com/app/Popplet_Alpha.swf?page_id=$1&em=1",
             {
-                templateRegex: /.*#\/([^\/]+).*/,
+                templateRegex: /.*%23\/([^\/]+).*/,
                 embedtag: {
                     width: 460,
                     height: 460

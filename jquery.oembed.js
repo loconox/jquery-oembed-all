@@ -137,7 +137,8 @@
             console.log('err:', a, b, c, d)
         },
         ajaxOptions: {},
-        longUrlAjaxOptions: {}
+        longUrlAjaxOptions: {},
+        yqlAPI: "//query.yahooapis.com/v1/public/yql",
     };
 
     /* Private functions */
@@ -197,7 +198,7 @@
             if (from == 'html')
                 query += " and compat='html5'";
             var ajaxopts = $.extend({
-                url: "//query.yahooapis.com/v1/public/yql",
+                url: settings.yqlAPI,
                 dataType: 'jsonp',
                 data: {
                     q: query,
